@@ -7,16 +7,35 @@ import os
 
 
 
-def read_parameter():
-	pass
+def read_file(file):
+	with open(a, 'w') as f:
+                f.write('完成检测')
+
+
+
+
+
+
+
+
+
+
 #	par_0 = [9,8,30,5,20,7]
-#	bundle = [par_0]
+#	bundle = [par_0]		
 #	if os.path.exists('./parameter.cof'):	
 #		with open('./parameter.cof', 'r') as file:
 #    			par_1 =file.read()
 #			bundle = process(par_1,bundle)
 #	return bundle
 
+
+
+
+
+
+#****************************************************************************
+#此函数用于打开被输入文件夹下的所有文件
+#****************************************************************************
 def read_in(dir):
 	dir = str(dir)
 	now = os.path.abspath('.')
@@ -40,6 +59,9 @@ def load_in_test(a) :
 
 
 
+#****************************************************************************
+#这是用于创建高维数组的函数
+#****************************************************************************
 def creat_datebase1(*need):
 	need = list(need)
 	mat = None
@@ -59,6 +81,9 @@ def creat_datebase2(need,mat=0):
 	return bundle
 
 
+#****************************************************************************
+#这两个函数被用于测试数组
+#****************************************************************************
 def mat_test(mat):
 	dem = 1
 	while isinstance(mat[0],list):
@@ -80,6 +105,10 @@ def random_test(a):
 				a[count]=5
 				count = count + 1
 
+#****************************************************************************
+#以下是定义类的区域
+#包括:课程，老师
+#****************************************************************************
 class classt():
 	def __init__(self):
 		pass
@@ -128,8 +157,5 @@ read_in('1')
 
 
 
-#s = 'test.text'
 
 
-#with open(s,'a+') as f :
-#		f.write(s)
