@@ -50,11 +50,11 @@ def read_in(dir):
 			count = count + 1
 			os.chdir(then)
 		else:
-			load_in_test(dir_1[count])					
+			load_in_test(os.path.join(os.path.abspath('.'),dir_1[count]))					
 			count = count +1
-def load_in_test(a) :
-	with open(a, 'w') as f:
-		f.write('完成检测')
+def load_in_test(file_in) :
+	with open(file_in, 'w') as file:
+		buffer_in = file.readlines()
 
 
 
