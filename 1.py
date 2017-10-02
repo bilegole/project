@@ -191,7 +191,7 @@ def random_test(a):
 			count = count + 1
 		else:
 			while (count+1) < len98 :
-				a[count]=5
+				a[count].print_self()
 				count = count + 1
 
 
@@ -261,9 +261,6 @@ date = (10,8,30,4,20,7)
 
 
 def main():
-	bundle = read_parameter()
-	DATEBASE = creat_datebase(9,8,30,5,20,7)
-	read_in()
 
 building = {'A':1,'B':2,'C':3,'D':4,'E':5,'信远楼':6,'工训中心':7,'大学生活动室':8,'北操场':9,'南操场':10}
 department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'物理与光电工程':5,'软件':6,'网络与信息安全':7,'微电子':8,'生命科学与技术':9,'先进材料与纳米技术':10,'数学与统计':11,'空间科学与技术':12,'外国语':13,'经济与管理':14,'人文':15,'马克思主义':16,'国际教育':17,'网络与技术教育':18,'体育部':19}
@@ -277,10 +274,10 @@ department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'
 
 
 
-
+#bundle = read_parameter()
+DATEBASE = creat_datebase(9,8,30,5,20,7)
 read_in('date')
-
-
+random_test(DATEBASE)
 
 
 
