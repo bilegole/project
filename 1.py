@@ -104,7 +104,10 @@ def read_file_in(file_in):
 			id_ot = ''
 			id_ot = string[4:]
 			class_tmp.give_teacher_id(id_ot)
-	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = classtmp
+	for j in range(len(id_list)):
+		id_list[j] = int (id_list[j])
+	print (id_list)	
+	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = class_tmp
 #	class_tmp.print_self()
 
 #重写吧
@@ -261,6 +264,7 @@ date = (10,8,30,4,20,7)
 
 
 def main():
+	pass
 
 building = {'A':1,'B':2,'C':3,'D':4,'E':5,'信远楼':6,'工训中心':7,'大学生活动室':8,'北操场':9,'南操场':10}
 department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'物理与光电工程':5,'软件':6,'网络与信息安全':7,'微电子':8,'生命科学与技术':9,'先进材料与纳米技术':10,'数学与统计':11,'空间科学与技术':12,'外国语':13,'经济与管理':14,'人文':15,'马克思主义':16,'国际教育':17,'网络与技术教育':18,'体育部':19}
@@ -273,9 +277,11 @@ department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'
 #______________________________________________________________________________
 
 
+#现在在调试数组的空间大小，程序总是说数组越界。。。。。
+#去他妈的
 
 #bundle = read_parameter()
-DATEBASE = creat_datebase(9,8,30,5,20,7)
+DATEBASE = creat_datebase1(9,8,30,5,20,7)
 read_in('date')
 random_test(DATEBASE)
 
