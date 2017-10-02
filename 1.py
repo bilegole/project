@@ -9,7 +9,7 @@ import os
 
 def read_file(file):
 	with open(a, 'w') as f:
-                f.write('完成检测')
+                f.readlines()
 
 
 
@@ -50,15 +50,104 @@ def read_in(dir):
 			count = count + 1
 			os.chdir(then)
 		else:
-			load_in_test(os.path.join(os.path.abspath('.'),dir_1[count]))					
-			count = count +1
-def load_in_test(file_in) :
-	with open(file_in, 'w') as file:
-		buffer_in = file.readlines()
+			read_file_in(os.path.join(os.path.abspath('.'),dir_1[count]))
+		count = count  + 1
+#def load_in_test(file_in) :
+#
+#	ev_in = 'ev_in'
+#	ev_conf = 'ev_conf'
+#	ev_out = 'ev_out'
+#	with open(file_in, 'r') as file:
+#		buffer_in = file.readlines()
+#	for i in range(len(buffer_in)) :
+#		buffer_in[i] =  buffer_in[i][:-1]
+#	#judge = buffer_in[0][1:3]
+##	妈勒个鸡，不调了，buffer_in居然没有读到任何数据，好气啊
+#	print (buffer_in)
+#	if ev_conf == buffer_in[0] :
+#		pass
+#	elif ev_in == buffer_in[0] :
+#		read_file_in(buffer_in)
+#	elif ev_out== buffer_in[0] :
+#		pass
+#	else : 
+#		pass
 
+def read_file_in(file_in):
+	global DATEBASE
+	ev_in = 'ev_in'
+	ev_conf = 'ev_conf'
+	ev_out = 'ev_out'
+	with open(file_in, 'r') as file:
+	        buffer_in = file.readlines()
+	title = buffer_in[0][:-1]
+	buffer_in.pop(0)
+	id_list = []
+	class_tmp = Classt()
+	for i in range(len(buffer_in)) :
+		string =  buffer_in[i][:-1]
+		judge = string[:3]
+		if judge == '001':
+			for letter in buffer_in[i][4:-1]:
+				id_list.append(letter)
+			#print(id_list)
+		elif judge == '002':
+			id_list.insert(2,string[4:])	 
+			#print(id_list)
+			class_tmp.give_id(id_list)
+			#print('iii')
+		elif judge == '003':
+			name_oc = ''
+			name_oc == string[4:]
+			class_tmp.give_name(name_oc)
+		elif judge == '004':
+			id_ot = ''
+			id_ot = string[4:]
+			class_tmp.give_teacher_id(id_ot)
+	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = classtmp
+#	class_tmp.print_self()
 
-
-
+#重写吧
+#def read_file_in(buffer_in) :
+#	#parameter = ['001','002','003']
+#	global DATEBASE
+#	a = buffer_in [1]
+#	b = buffer_in [2]
+#	print ('ttt')
+#	if a[:3] == '001':    
+##			001是后面跟的是课程编号，用于在程序中定位（防止换算过程中出bug） 
+##			001@11111
+##			002后面跟的是教室层编号，因为有两位，所以最好特殊处理
+##			002@11
+#		buffer_ini = buffer_in 
+#		b = b[4:6]
+##	喝了太多酒，调不了了。。。。。。。。
+##	妈勒个鸡的
+#		buffer_ini.insert(2,b)
+#		t = trans ( a[4:9] ) 
+#		class_tmp = classt()
+#		print(buffer_ini)
+#		class_tmp.give_id(t)
+#		print(buffer_ini)
+#		buffer_ini.pop(0)
+#		buffer_ini.pop(0)
+#		buffer_ini.pop(0)
+#		for p in buffer_ini:
+#			p_tmp = p[:3]
+#			p_tmp2= p[4:]
+#			if p_tmp == '003':
+#				class_tmp.give_name(p_tmp2)
+#	#			003用于写入课程的名字。
+#			if p_tmp == '004':
+#				class_tmp.give_teacher_id(p_tmp2)
+#	#			004 用于写入老师编号
+#		#class_tmp.print_self()	
+#	DATEBASE[t[0]][t[1]][t[2]][t[3]][t[4]][5] = class_tmp
+def trans(a):
+	t = []
+	for i in a :
+		t.append(i)
+	return t
 #****************************************************************************
 #这是用于创建高维数组的函数
 #****************************************************************************
@@ -105,25 +194,58 @@ def random_test(a):
 				a[count]=5
 				count = count + 1
 
+
+
+#****************************************************************************
+#以下是工具类函数的区域
+#包括:将list转化为字符串的trans
+#****************************************************************************
+
+
+def trans (list_tmp):
+	st = ''
+	for i in list_tmp : 
+		st = st + i
+	return st
+
+
 #****************************************************************************
 #以下是定义类的区域
 #包括:课程，老师
 #****************************************************************************
-class classt():
-	def __init__(self):
-		pass
-	def init():
-		pass	
-		
-	def get_inf_from_file():
-		pass
-	def save_inf_into_file():
-		pass
-		
-class teacher():
-	def __init__(self):
-		pass
 
+
+
+
+
+
+class Classt(object):
+	def __init__(self):
+                self.id = None
+                self.id_str = None
+                self.name = None
+                self.teacher = None
+                pass
+	def give_id(self,id_list):
+		self.id = id_list
+		self.id_str = trans(self.id)
+#		print(self.id)
+#		print(self.id_str)
+	def give_name(self,name):
+                 self.name = name
+	def give_teacher_id(self,iden):
+                self.teacher = teacher(iden)
+		#self.tea_id = iden
+	def print_self(self):
+		print('类classt已创建')
+		print('课程名称为：',self.name)
+		print('id为',self.id_str)
+		print('list:',self.id)
+		print('老师的id为',self.teacher.iden)
+
+class teacher(object):
+	def __init__(self,iden):
+	        self.iden = iden
 
 date = (10,8,30,4,20,7)
 
@@ -131,9 +253,16 @@ date = (10,8,30,4,20,7)
 
 
 
+
+
+
+
+
+
+
 def main():
 	bundle = read_parameter()
-	creat_datebase(9,8,30,5,20,7)
+	DATEBASE = creat_datebase(9,8,30,5,20,7)
 	read_in()
 
 building = {'A':1,'B':2,'C':3,'D':4,'E':5,'信远楼':6,'工训中心':7,'大学生活动室':8,'北操场':9,'南操场':10}
@@ -143,17 +272,13 @@ department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'
 #_______test area_______________________________________________________________________
 #dir = []
 #for i in dir=read_in():
-print ("*************************************************************************")
-print ("*************************************************************************")
-print ("*************************************************************************")
-print ("*************************************************************************")
-read_in('1')
+#read_in('1')
 #______________________________________________________________________________
 
 
 
 
-
+read_in('date')
 
 
 
