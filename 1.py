@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
-
+import copy
 
 
 
@@ -52,27 +52,10 @@ def read_in(dir):
 		else:
 			read_file_in(os.path.join(os.path.abspath('.'),dir_1[count]))
 		count = count  + 1
-#def load_in_test(file_in) :
-#
-#	ev_in = 'ev_in'
-#	ev_conf = 'ev_conf'
-#	ev_out = 'ev_out'
-#	with open(file_in, 'r') as file:
-#		buffer_in = file.readlines()
-#	for i in range(len(buffer_in)) :
-#		buffer_in[i] =  buffer_in[i][:-1]
-#	#judge = buffer_in[0][1:3]
-##	妈勒个鸡，不调了，buffer_in居然没有读到任何数据，好气啊
-#	print (buffer_in)
-#	if ev_conf == buffer_in[0] :
-#		pass
-#	elif ev_in == buffer_in[0] :
-#		read_file_in(buffer_in)
-#	elif ev_out== buffer_in[0] :
-#		pass
-#	else : 
-#		pass
 
+#****************************************************************************
+#此函数用于读取文件（课）的配置
+#****************************************************************************
 def read_file_in(file_in):
 	global DATEBASE
 	ev_in = 'ev_in'
@@ -107,7 +90,8 @@ def read_file_in(file_in):
 	for j in range(len(id_list)):
 		id_list[j] = int (id_list[j])
 	print (id_list)	
-	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = class_tmp
+	rewrite(id_list,class_tmp)
+#	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = class_tmp
 #	class_tmp.print_self()
 
 #重写吧
@@ -172,13 +156,27 @@ def creat_datebase2(need,mat=0):
 	bundle = [need , mat1]
 	return bundle
 
-
+def rewrite(t,class_t):
+	global DATEBASE	
+	i_5 = copy.copy(DATEBASE[t[0]][t[1]][t[2]][t[3]][t[4]])
+	i_4 = copy.copy(DATEBASE[t[0]][t[1]][t[2]][t[3]])
+	i_3 = copy.copy(DATEBASE[t[0]][t[1]][t[2]])
+	i_2 = copy.copy(DATEBASE[t[0]][t[1]])
+	i_1 = copy.copy(DATEBASE[t[0]])
+	print (t[5])
+	i_5[t[5]] = class_t
+	i_4[t[4]] = i_5
+	i_3[t[3]] = i_4
+	i_2[t[2]] = i_3
+	i_1[t[1]] = i_2
+	DATEBASE[t[0]] = i_1
 #****************************************************************************
 #这两个函数被用于测试数组
 #****************************************************************************
 def mat_test(mat):
 	dem = 1
 	while isinstance(mat[0],list):
+		print(len(mat))
 		mat = mat[0]
 		dem = dem + 1
 	print('这是一个',dem,'维数组')
@@ -194,9 +192,10 @@ def random_test(a):
 			count = count + 1
 		else:
 			while (count+1) < len98 :
-				a[count].print_self()
+				if a[count] != None :
+					print (a[count])
+					a[count].print_self()
 				count = count + 1
-
 
 
 #****************************************************************************
@@ -210,6 +209,7 @@ def trans (list_tmp):
 	for i in list_tmp : 
 		st = st + i
 	return st
+
 
 
 #****************************************************************************
@@ -281,9 +281,15 @@ department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'
 #去他妈的
 
 #bundle = read_parameter()
-DATEBASE = creat_datebase1(9,8,30,5,20,7)
+
+
+
+
+DATEBASE = creat_datebase1(7,20,5,30,8,9)
+#DATEBASE[1][1][4][1][1][1] = Classt()
 read_in('date')
 random_test(DATEBASE)
+print('程序执行完毕')		
 
-
-
+#mat = [[[2,3],[3,5]],[[4,5],[4,2]]]
+#mat_test(DATEBASE)
