@@ -52,7 +52,7 @@ def load_out(a):
 
 def write_file(class_t):
 	content = []
-	content.append('ev_in')
+	content.append('ev_in\n')
 	if class_t.id_list != None:
 		content.append('001@'+class_t.id_str[:3]+class_t.id_str[4:]+'\n')
 		content.append('002@'+class_t.id_str[2:4]+'\n')
@@ -60,7 +60,7 @@ def write_file(class_t):
 		content.append('003@'+class_t.name+'\n')
 	if class_t.teacher != None :
 		content.append('004@'+class_t.teacher.iden+'\n')
-	with open(class_t.id_list[-1], 'w+') as file:
+	with open(str(class_t.id_list[-1]), 'w+') as file:
 		file.writelines(content)
 
 
