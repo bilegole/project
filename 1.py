@@ -102,16 +102,14 @@ def read_file_in(file_in):
 		elif judge == '002':
 			id_list.insert(2,string[4:-1])	 
 	#		print (string[4:-1])
-	#		print (id_list)
+#			print (id_list)
 			class_tmp.give_id(id_list)
 		elif judge == '003':
-			name_oc = string[4:]
+			name_oc = string[4:-1]
 			class_tmp.give_name(name_oc)
 		elif judge == '004':
-			id_ot = string[4:]
+			id_ot = string[4:-1]
 			class_tmp.give_teacher_id(id_ot)
-	for j in range(len(id_list)):
-		id_list[j] = int (id_list[j])
 	rewrite(id_list,class_tmp)
 #	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = class_tmp
 #	class_tmp.print_self()
@@ -148,7 +146,10 @@ def creat_datebase2(need,mat=0):
 
 
 #此函数用于写入高维数组，并且使其指针正确
-def rewrite(t,class_t):
+def rewrite(list_id,class_t):
+	t = copy.copy(list_id)
+	for j in range(len(t)):
+		t[j] = int (t[j])
 	global DATEBASE	
 	i_5 = copy.copy(DATEBASE[t[0]][t[1]][t[2]][t[3]][t[4]])
 	i_4 = copy.copy(DATEBASE[t[0]][t[1]][t[2]][t[3]])
@@ -240,6 +241,7 @@ class Classt(object):
 	def give_id(self,id_list):
 		self.id_list = id_list
 		self.id_str = trans(self.id_list)
+		print(id_list)
 #		print(self.id)
 #		print(self.id_str)
 	def give_name(self,name):
