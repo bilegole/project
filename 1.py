@@ -78,6 +78,7 @@ def read_in(dir):
 #此函数用于读取文件（课）的配置
 #****************************************************************************
 def read_file_in(file_in):
+	#print ('开始read——in——函数')
 	global DATEBASE
 	ev_in = 'ev_in'
 	ev_conf = 'ev_conf'
@@ -88,15 +89,20 @@ def read_file_in(file_in):
 	buffer_in.pop(0)
 	id_list = []
 	class_tmp = Classt()
+	#print(buffer_in)
 	for i in range(len(buffer_in)) :
-		string =  buffer_in[i][:-1]
+
+		string =  buffer_in[i]
 		judge = string[:3]
+	#	print('judge:',judge)
 		if judge == '001':
-			for letter in buffer_in[i][4:-1]:
+			for letter in string[4:-1]:
 				id_list.append(letter)
+	#		print('id_list:',id_list)
 		elif judge == '002':
-			id_list.insert(2,string[4:])	 
-			print (string[4:])
+			id_list.insert(2,string[4:-1])	 
+	#		print (string[4:-1])
+	#		print (id_list)
 			class_tmp.give_id(id_list)
 		elif judge == '003':
 			name_oc = string[4:]
@@ -149,12 +155,14 @@ def rewrite(t,class_t):
 	i_3 = copy.copy(DATEBASE[t[0]][t[1]][t[2]])
 	i_2 = copy.copy(DATEBASE[t[0]][t[1]])
 	i_1 = copy.copy(DATEBASE[t[0]])
-	i_5[t[5]] = class_t
-	i_4[t[4]] = i_5
-	i_3[t[3]] = i_4
-	i_2[t[2]] = i_3
-	i_1[t[1]] = i_2
-	DATEBASE[t[0]] = i_1
+#	print(len(i_5))
+#	print(t)
+	i_5[t[5]] = class_t						#i_5的长度是7
+	i_4[t[4]] = i_5							#i_4的长度是20
+	i_3[t[3]] = i_4							#i_3的长度是5
+	i_2[t[2]] = i_3							#i_2的长度是30
+	i_1[t[1]] = i_2							#i_1的长度是8
+	DATEBASE[t[0]] = i_1          					#DATEBASE的长度是9
 #****************************************************************************
 #这两个函数被用于测试数组
 #****************************************************************************
@@ -192,8 +200,13 @@ def random_test(a):
 
 def trans (list_tmp):
 	st = ''
+	
 	for i in list_tmp : 
-		st = st + str(i)
+		t = str (i)
+		if i == 2:
+			t = '0' + t 
+		print (t)
+		st = st + t
 	return st
 
 
@@ -316,10 +329,13 @@ read_in('date')
 random_test(DATEBASE)
 os.chdir(HOME)
 print('程序执行完毕')		
-ii_id = [1,1,1,1,1,1]
+ii_id = ['1','1','01','1','1','1']
 ii = Classt()
+print('aaa')
 ii.give_id(ii_id)
+print('bbb')
 ii.give_name('算法导论')
+print ('ccc')
 ii.give_teacher_id('teacher_id')
 print (ii.name)
 ii.print_self()
