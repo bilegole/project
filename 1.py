@@ -109,12 +109,9 @@ def read_file_in(file_in):
 		if judge == '001':
 			for letter in buffer_in[i][4:-1]:
 				id_list.append(letter)
-			#print(id_list)
 		elif judge == '002':
 			id_list.insert(2,string[4:])	 
-			#print(id_list)
 			class_tmp.give_id(id_list)
-			#print('iii')
 		elif judge == '003':
 			name_oc = ''
 			name_oc = string[4:]
@@ -208,7 +205,7 @@ def random_test(a):
 def trans (list_tmp):
 	st = ''
 	for i in list_tmp : 
-		st = st + i
+		st = st + str(i)
 	return st
 
 
@@ -248,10 +245,10 @@ class Classt(object):
 		print('老师的id为',self.teacher.iden)
 	def load_out(self,path):				#此函数需要date的目录（如：／Users/yuyang/project/date ）
 		os.chdir(path)
-		for count in range(len(self.id_list-1):
+		for count in range(len(self.id_list)-1):
 			tip = False
-			for dd in [x for x in os.listdir('.') if os.path.isdir(x)]
-				if self.id_list(count) == dd :
+			for dd in [x for x in os.listdir('.') if os.path.isdir(x)]:
+				if self.id_list[count] == dd :
 					tip = True
 					break
 			if not tip :
@@ -311,6 +308,12 @@ DATEBASE = creat_datebase1(7,20,5,30,8,9)
 read_in('date')
 random_test(DATEBASE)
 print('程序执行完毕')		
-
+ii_id = [1,1,3,1,1,1]
+ii = Classt()
+ii.give_id(ii_id)
+ii.give_name('算法导论')
+ii.give_teacher_id('teacher_id')
+ii.print_self
+ii.load_out('date')
 #mat = [[[2,3],[3,5]],[[4,5],[4,2]]]
 #mat_test(DATEBASE)
