@@ -54,7 +54,7 @@ def write_file(class_t):
 	content = []
 	content.append('ev_in\n')
 	if class_t.id_list != None:
-		content.append('001@'+class_t.id_str[:3]+class_t.id_str[4:]+'\n')
+		content.append('001@'+class_t.id_str[:2]+class_t.id_str[4:]+'\n')
 		content.append('002@'+class_t.id_str[2:4]+'\n')
 	if class_t.name != None :
 		content.append('003@'+class_t.name+'\n')
@@ -135,7 +135,11 @@ def trans(a):
 #这是用于创建高维数组的函数
 #****************************************************************************
 def creat_datebase1(*need):
-	need = list(need)
+	need_1 = list(copy.copy(need))
+	for e in range(len(need)):
+		need_1[e] = need[-(e+1)]
+		
+	need = list(need_1)
 	mat = None
 	bundle = [need,mat]
 	while len(bundle[0]) > 0 :
@@ -191,6 +195,7 @@ def random_test(a):
 			random_test(a[count])
 		elif a[count] != None :
 			a[count].print_self()
+			a[count].load_out('date')
 		else:
 			pass
 		count = count + 1
@@ -325,13 +330,13 @@ department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'
 
 HOME = os.path.abspath('.')
 
-DATEBASE = creat_datebase1(7,20,5,30,8,9)
+DATEBASE = creat_datebase1(9,8,30,5,20,7)
 #DATEBASE[1][1][4][1][1][1] = Classt()
 read_in('date')
 random_test(DATEBASE)
 os.chdir(HOME)
 print('程序执行完毕')		
-ii_id = [1,1,3,1,1,1]
+ii_id = [1,1,1,1,1,1]
 ii = Classt()
 ii.give_id(ii_id)
 ii.give_name('算法导论')
