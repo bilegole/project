@@ -133,10 +133,10 @@ def creat_datebase1(*need):
 	
 def creat_datebase2(need,mat=0):
 	mat1 = []
-	while need[0] > 0 :
+	while need[-1] > 0 :
 		mat1.append(mat)
-		need[0] = need[0] -1
-	need.pop(0)
+		need[-1] = need[-1] -1
+	need.pop(-1)
 	bundle = [need , mat1]
 	return bundle
 
