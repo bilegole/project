@@ -50,21 +50,6 @@ def load_out(a):
 #此函数用于写入数据文件
 #****************************************************************************
 
-def write_file(class_t):
-	content = []
-	content.append('ev_in\n')
-	if class_t.id_list != None:
-		content.append('001@'+class_t.id_str[:2]+class_t.id_str[4:]+'\n')
-		content.append('002@'+class_t.id_str[2:4]+'\n')
-	if class_t.name != None :
-		content.append('003@'+class_t.name+'\n')
-	if class_t.teacher != None :
-		content.append('004@'+class_t.teacher.iden+'\n')
-	with open(str(class_t.id_list[-1]), 'w+') as file:
-		file.writelines(content)
-
-
-
 
 
 
@@ -111,13 +96,12 @@ def read_file_in(file_in):
 				id_list.append(letter)
 		elif judge == '002':
 			id_list.insert(2,string[4:])	 
+			print (string[4:])
 			class_tmp.give_id(id_list)
 		elif judge == '003':
-			name_oc = ''
 			name_oc = string[4:]
 			class_tmp.give_name(name_oc)
 		elif judge == '004':
-			id_ot = ''
 			id_ot = string[4:]
 			class_tmp.give_teacher_id(id_ot)
 	for j in range(len(id_list)):
@@ -126,11 +110,11 @@ def read_file_in(file_in):
 #	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = class_tmp
 #	class_tmp.print_self()
 
-def trans(a):
-	t = []
-	for i in a :
-		t.append(i)
-	return t
+#def trans(a):
+#	t = []
+#	for i in a :
+#		t.append(i)
+#	return t
 #****************************************************************************
 #这是用于创建高维数组的函数
 #****************************************************************************
@@ -139,7 +123,7 @@ def creat_datebase1(*need):
 	for e in range(len(need)):
 		need_1[e] = need[-(e+1)]
 		
-	need = list(need_1)
+	need = list(need)
 	mat = None
 	bundle = [need,mat]
 	while len(bundle[0]) > 0 :
@@ -231,6 +215,15 @@ class Classt(object):
                 self.name = None
                 self.teacher = None
                 pass
+
+
+
+#	标号规则：以str形式储存，需要时转为int
+#	目前有6位，最大大小分别为：9,8,30,5,20,7
+#	储存在文本中时，以：
+#	001@abefg
+#	002@cb
+#	形式存在
 	def give_id(self,id_list):
 		self.id_list = id_list
 		self.id_str = trans(self.id_list)
@@ -259,35 +252,22 @@ class Classt(object):
 			if  tip == False :
 				os.mkdir(os.path.join(os.path.abspath('.'),str(self.id_list[count])))
 			os.chdir(str(self.id_list[count]))
+		self.write_file()
+
+	def write_file(self):
+		content = []
+		content.append('ev_in\n')
+		if self.id_list != None:
+			content.append('001@'+self.id_str[:2]+self.id_str[4:]+'\n')
+			content.append('002@'+self.id_str[2:4]+'\n')
+		if self.name != None :
+			content.append('003@'+self.name+'\n')
+		if self.teacher != None :
+			content.append('004@'+self.teacher.iden+'\n')
+		with open(str(self.id_list[-1]), 'w+') as file:
+			file.writelines(content)
 
 
-
-		#for count in range(len(self.id_list)-1):
-		#	tip = False
-		#	for dd in [x for x in os.listdir('.') if os.path.isdir(x)]:
-		#		if self.id_list[count] == dd :
-		#			tip = True
-		#			break
-		#	print(os.listdir('.'))
-		#	if  tip == 1 :
-		#		os.mkdir(os.path.join(os.path.abspath('.'),str(self.id_list[count])))
-		#	print(os.listdir('.'))
-		#	os.chdir(str(self.id_list[count]))
-
-
-
-
-
-
-
-
-
-#		tip = False	
-#		for dd in [x for x in os.listdir('.') if os.path.isdir(x)]
-#			if self.id_list(-1) == dd :
-#				tip = True
-#				break
-		write_file(self)
 
 
 
