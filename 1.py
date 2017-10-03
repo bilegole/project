@@ -47,6 +47,29 @@ def load_out(a):
 
 
 #****************************************************************************
+#此函数用于写入数据文件
+#****************************************************************************
+
+def write_file(class_t):
+	content = []
+	content.append('ev_in')
+	if class_t.id_list != None:
+		content.append('001@'+class_t.id_str[:3]+class_t.id_str[4:])
+		content.append('002@'+class_t.id_str[2:4])
+	if class_t.name != None :
+		content.append('003@'+class_t.name)
+	if class_t.teacher != None :
+		content.append('004@'+class_t.teacher.iden)
+	with open(class_t.id_list(-1), 'w+') as file:
+		file.writelines(content)
+
+
+
+
+
+
+
+#****************************************************************************
 #此函数用于打开被输入文件夹下的所有文件
 #****************************************************************************
 def read_in(dir):
@@ -240,26 +263,6 @@ class Classt(object):
 #				tip = True
 #				break
 		write_file(self)
-
-
-
-def write_file(class_t):
-	content = []
-	content.append('ev_in')
-	if class_t.id_list != None:
-		content.append('001@'+class_t.id_str[:3]+class_t.id_str[4:])
-		content.append('002@'+class_t.id_str[2:4])
-	if class_t.name != None :
-		content.append('003@'+class_t.name)
-	if class_t.teacher != None :
-		content.append('004@'+class_t.teacher.iden)
-	with open(class_t.id_list(-1), 'w+') as file:
-		file.writelines(content)
-
-
-
-
-
 
 
 
