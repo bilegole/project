@@ -31,6 +31,19 @@ def read_file(file):
 
 
 
+def load_out(a):
+	
+	len98 = len(a)
+	count = 0
+	while (len(a)>(count+1)):
+		if isinstance(a[count],list):
+			random_test(a[count])
+			count = count + 1
+		else:
+			while (count+1) < len98 :
+				if a[count] != None :
+					a[count].print_self()
+				count = count + 1
 
 
 #****************************************************************************
@@ -81,7 +94,7 @@ def read_file_in(file_in):
 			#print('iii')
 		elif judge == '003':
 			name_oc = ''
-			name_oc == string[4:]
+			name_oc = string[4:]
 			class_tmp.give_name(name_oc)
 		elif judge == '004':
 			id_ot = ''
@@ -89,47 +102,10 @@ def read_file_in(file_in):
 			class_tmp.give_teacher_id(id_ot)
 	for j in range(len(id_list)):
 		id_list[j] = int (id_list[j])
-	print (id_list)	
 	rewrite(id_list,class_tmp)
 #	DATEBASE[id_list[0]][id_list[1]][id_list[2]][id_list[3]][id_list[4]][id_list[5]] = class_tmp
 #	class_tmp.print_self()
 
-#重写吧
-#def read_file_in(buffer_in) :
-#	#parameter = ['001','002','003']
-#	global DATEBASE
-#	a = buffer_in [1]
-#	b = buffer_in [2]
-#	print ('ttt')
-#	if a[:3] == '001':    
-##			001是后面跟的是课程编号，用于在程序中定位（防止换算过程中出bug） 
-##			001@11111
-##			002后面跟的是教室层编号，因为有两位，所以最好特殊处理
-##			002@11
-#		buffer_ini = buffer_in 
-#		b = b[4:6]
-##	喝了太多酒，调不了了。。。。。。。。
-##	妈勒个鸡的
-#		buffer_ini.insert(2,b)
-#		t = trans ( a[4:9] ) 
-#		class_tmp = classt()
-#		print(buffer_ini)
-#		class_tmp.give_id(t)
-#		print(buffer_ini)
-#		buffer_ini.pop(0)
-#		buffer_ini.pop(0)
-#		buffer_ini.pop(0)
-#		for p in buffer_ini:
-#			p_tmp = p[:3]
-#			p_tmp2= p[4:]
-#			if p_tmp == '003':
-#				class_tmp.give_name(p_tmp2)
-#	#			003用于写入课程的名字。
-#			if p_tmp == '004':
-#				class_tmp.give_teacher_id(p_tmp2)
-#	#			004 用于写入老师编号
-#		#class_tmp.print_self()	
-#	DATEBASE[t[0]][t[1]][t[2]][t[3]][t[4]][5] = class_tmp
 def trans(a):
 	t = []
 	for i in a :
@@ -156,6 +132,8 @@ def creat_datebase2(need,mat=0):
 	bundle = [need , mat1]
 	return bundle
 
+
+#此函数用于写入高维数组，并且使其指针正确
 def rewrite(t,class_t):
 	global DATEBASE	
 	i_5 = copy.copy(DATEBASE[t[0]][t[1]][t[2]][t[3]][t[4]])
@@ -163,7 +141,6 @@ def rewrite(t,class_t):
 	i_3 = copy.copy(DATEBASE[t[0]][t[1]][t[2]])
 	i_2 = copy.copy(DATEBASE[t[0]][t[1]])
 	i_1 = copy.copy(DATEBASE[t[0]])
-	print (t[5])
 	i_5[t[5]] = class_t
 	i_4[t[4]] = i_5
 	i_3[t[3]] = i_4
@@ -173,6 +150,8 @@ def rewrite(t,class_t):
 #****************************************************************************
 #这两个函数被用于测试数组
 #****************************************************************************
+
+#此函数用于测量数组维度
 def mat_test(mat):
 	dem = 1
 	while isinstance(mat[0],list):
@@ -181,6 +160,7 @@ def mat_test(mat):
 		dem = dem + 1
 	print('这是一个',dem,'维数组')
 
+#此函数用于对数组中的每一个成员进行操作
 
 def random_test(a):
 	
@@ -193,10 +173,8 @@ def random_test(a):
 		else:
 			while (count+1) < len98 :
 				if a[count] != None :
-					print (a[count])
 					a[count].print_self()
 				count = count + 1
-
 
 #****************************************************************************
 #以下是工具类函数的区域
@@ -224,14 +202,14 @@ def trans (list_tmp):
 
 class Classt(object):
 	def __init__(self):
-                self.id = None
+                self.id_list = None
                 self.id_str = None
                 self.name = None
                 self.teacher = None
                 pass
 	def give_id(self,id_list):
-		self.id = id_list
-		self.id_str = trans(self.id)
+		self.id_list = id_list
+		self.id_str = trans(self.id_list)
 #		print(self.id)
 #		print(self.id_str)
 	def give_name(self,name):
@@ -243,8 +221,48 @@ class Classt(object):
 		print('类classt已创建')
 		print('课程名称为：',self.name)
 		print('id为',self.id_str)
-		print('list:',self.id)
+		print('list:',self.id_list)
 		print('老师的id为',self.teacher.iden)
+	def load_out(self,path):				#此函数需要date的目录（如：／Users/yuyang/project/date ）
+		os.chdir(path)
+		for count in range(len(self.id_list-1):
+			tip = False
+			for dd in [x for x in os.listdir('.') if os.path.isdir(x)]
+				if self.id_list(count) == dd :
+					tip = True
+					break
+			if not tip :
+				os.mkdir(os.path.join(os.path.abspath('.'),self.id_list(count)))
+			os.chdir(self.id_list(count))
+#		tip = False	
+#		for dd in [x for x in os.listdir('.') if os.path.isdir(x)]
+#			if self.id_list(-1) == dd :
+#				tip = True
+#				break
+		write_file(self)
+
+
+
+def write_file(class_t):
+	content = []
+	content.append('ev_in')
+	if class_t.id_list != None:
+		content.append('001@'+class_t.id_str[:3]+class_t.id_str[4:])
+		content.append('002@'+class_t.id_str[2:4])
+	if class_t.name != None :
+		content.append('003@'+class_t.name)
+	if class_t.teacher != None :
+		content.append('004@'+class_t.teacher.iden)
+	with open(class_t.id_list(-1), 'w+') as file:
+		file.writelines(content)
+
+
+
+
+
+
+
+
 
 class teacher(object):
 	def __init__(self,iden):
