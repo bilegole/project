@@ -189,12 +189,11 @@ def random_test(a):
 	while (len(a)>(count+1)):
 		if isinstance(a[count],list):
 			random_test(a[count])
-			count = count + 1
+		elif a[count] != None :
+			a[count].print_self()
 		else:
-			while (count+1) < len98 :
-				if a[count] != None :
-					a[count].print_self()
-				count = count + 1
+			pass
+		count = count + 1
 
 #****************************************************************************
 #以下是工具类函数的区域
@@ -245,24 +244,15 @@ class Classt(object):
 		print('老师的id为',self.teacher.iden)
 	def load_out(self,path):				#此函数需要date的目录（如：／Users/yuyang/project/date ）
 		global HOME
-		print('开始测试')
-		print (os.path.abspath('.'))
 		os.chdir(os.path.join(HOME,path))
-
-
-
-
 		for count in range(len(self.id_list)-1):
 			tip = False
 			for dd in [x for x in os.listdir('.') if os.path.isdir(x)]:
 				if str(self.id_list[count]) == dd :
 					tip = True
 					break
-			print(os.listdir('.'))
-			print (os.path.abspath('.'))
 			if  tip == False :
 				os.mkdir(os.path.join(os.path.abspath('.'),str(self.id_list[count])))
-			print(os.listdir('.'))
 			os.chdir(str(self.id_list[count]))
 
 
@@ -346,7 +336,8 @@ ii = Classt()
 ii.give_id(ii_id)
 ii.give_name('算法导论')
 ii.give_teacher_id('teacher_id')
-ii.print_self
+print (ii.name)
+ii.print_self()
 ii.load_out('date')
 #mat = [[[2,3],[3,5]],[[4,5],[4,2]]]
 #mat_test(DATEBASE)
