@@ -54,13 +54,13 @@ def write_file(class_t):
 	content = []
 	content.append('ev_in')
 	if class_t.id_list != None:
-		content.append('001@'+class_t.id_str[:3]+class_t.id_str[4:])
-		content.append('002@'+class_t.id_str[2:4])
+		content.append('001@'+class_t.id_str[:3]+class_t.id_str[4:]+'\n')
+		content.append('002@'+class_t.id_str[2:4]+'\n')
 	if class_t.name != None :
-		content.append('003@'+class_t.name)
+		content.append('003@'+class_t.name+'\n')
 	if class_t.teacher != None :
-		content.append('004@'+class_t.teacher.iden)
-	with open(class_t.id_list(-1), 'w+') as file:
+		content.append('004@'+class_t.teacher.iden+'\n')
+	with open(class_t.id_list[-1], 'w+') as file:
 		file.writelines(content)
 
 
@@ -244,16 +244,49 @@ class Classt(object):
 		print('list:',self.id_list)
 		print('老师的id为',self.teacher.iden)
 	def load_out(self,path):				#此函数需要date的目录（如：／Users/yuyang/project/date ）
-		os.chdir(path)
+		global HOME
+		print('开始测试')
+		print (os.path.abspath('.'))
+		os.chdir(os.path.join(HOME,path))
+
+
+
+
 		for count in range(len(self.id_list)-1):
 			tip = False
 			for dd in [x for x in os.listdir('.') if os.path.isdir(x)]:
-				if self.id_list[count] == dd :
+				if str(self.id_list[count]) == dd :
 					tip = True
 					break
-			if not tip :
-				os.mkdir(os.path.join(os.path.abspath('.'),self.id_list(count)))
-			os.chdir(self.id_list(count))
+			print(os.listdir('.'))
+			print (os.path.abspath('.'))
+			if  tip == False :
+				os.mkdir(os.path.join(os.path.abspath('.'),str(self.id_list[count])))
+			print(os.listdir('.'))
+			os.chdir(str(self.id_list[count]))
+
+
+
+		#for count in range(len(self.id_list)-1):
+		#	tip = False
+		#	for dd in [x for x in os.listdir('.') if os.path.isdir(x)]:
+		#		if self.id_list[count] == dd :
+		#			tip = True
+		#			break
+		#	print(os.listdir('.'))
+		#	if  tip == 1 :
+		#		os.mkdir(os.path.join(os.path.abspath('.'),str(self.id_list[count])))
+		#	print(os.listdir('.'))
+		#	os.chdir(str(self.id_list[count]))
+
+
+
+
+
+
+
+
+
 #		tip = False	
 #		for dd in [x for x in os.listdir('.') if os.path.isdir(x)]
 #			if self.id_list(-1) == dd :
@@ -300,13 +333,13 @@ department = {'计算机':1,'通信工程':2,'电子工程':3,'机电工程':4,'
 
 #bundle = read_parameter()
 
-
-
+HOME = os.path.abspath('.')
 
 DATEBASE = creat_datebase1(7,20,5,30,8,9)
 #DATEBASE[1][1][4][1][1][1] = Classt()
 read_in('date')
 random_test(DATEBASE)
+os.chdir(HOME)
 print('程序执行完毕')		
 ii_id = [1,1,3,1,1,1]
 ii = Classt()
