@@ -1,7 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-words = ['测试开始\n','\n','测试结束\n']
-print (words)
-words.pop(1)
-for word in words:
-	print(word,end = '')
+import base64
+
+#随便改，就是到时候记得保存
+#test = 'tmp'
+#with open (test,'r')as t :
+#	words = t.read()
+#
+
+file_in = './photo/1401011.gif'
+with open (file_in,'rb') as f:
+	photo_string = f.read()
+	photo_base64 = base64.b64encode(f.read())
+print(photo_string)
+#print (photo_base64)
+
