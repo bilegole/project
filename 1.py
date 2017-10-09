@@ -32,23 +32,25 @@ def creat_datebase2(need,mat=0):
 	return bundle
 
 
-#此函数用于调换高维数组：DATEBASE的某个变量，并且使其指针正确
-def rewrite(list_id,class_t):
-	t = copy.copy(list_id)
-	for j in range(len(t)):
-		t[j] = int (t[j])
-	global DATEBASE	
-	i_5 = copy.copy(DATEBASE[t[0]][t[1]][t[2]][t[3]][t[4]])
-	i_4 = copy.copy(DATEBASE[t[0]][t[1]][t[2]][t[3]])
-	i_3 = copy.copy(DATEBASE[t[0]][t[1]][t[2]])
-	i_2 = copy.copy(DATEBASE[t[0]][t[1]])
-	i_1 = copy.copy(DATEBASE[t[0]])
-	i_5[t[5]] = class_t						#i_5的长度是7
-	i_4[t[4]] = i_5							#i_4的长度是20
-	i_3[t[3]] = i_4							#i_3的长度是5
-	i_2[t[2]] = i_3							#i_2的长度是30
-	i_1[t[1]] = i_2							#i_1的长度是8
-	DATEBASE[t[0]] = i_1          					#DATEBASE的长度是9
+#这是对数据库中内存的操作，主要是解决python3不变量内存相同，变量内存指同的问题
+def dat_ch(list_id,content,datebase):
+    #list_id指数据的位置id（list形式）,content指要插入的内容,datebase指要更改的数据库，最好是直通原数组
+    list_len = len(list_id)
+    list_cp = copy.copy(list_id)
+    for j in range(len(list_cp)):
+        list_cp[j] = int (list_cp[j])
+    i_list = []
+    for i in range(len(list_id)):
+        i_list.append(0)
+        if i == 0 :
+            i_list[i] = copy.copy(datebase[list_cp[0]])
+            datebase[list_cp[0]] = i_list[i]
+        elif i == len(list_id)-1  :
+            i_list[i-1][list_cp[i]] = content
+        else :
+            i_list[i] = copy.copy(i_list[i-1][list_cp[i]])
+            i_list[i-1][list_cp[i]] = i_list[i]
+
 
 #此函数未开始写
 #@@@\\\
@@ -120,7 +122,7 @@ def read_file_in(file_in):
 		elif judge == '004':
 			na_ot = string[4:-1]
 			class_tmp.give_teacher_str(na_ot)
-	rewrite(id_list,class_tmp)
+	dat_ch(id_list,class_tmp,DATEBASE)
 #****************************************************************************
 #这两个函数被用于测试数组
 #****************************************************************************
@@ -170,9 +172,7 @@ def trans (list_tmp):
 #包括:课程，老师
 #****************************************************************************
 
-class DATEBASE(object):
 	
-	def __init__(self)
 		
 
 
@@ -186,13 +186,13 @@ class DATEBASE(object):
 
 class Classt(object):
 	def __init__(self):
-                self.id_list = None
-                self.id_str = None
-                self.name = None
-                self.teacher = None
-		self.score = None	#
-		self.must = None	#
-		self.time = None	#
+		self.id_list = None
+		self.id_str = None
+		self.name = None
+		self.teacher = None
+		self.score = None
+		self.must = None
+		self.time = None
 #		self.tea_dict = None
 #	目前有6位，最大大小分别为：9,8,30,5,20,7
 #	储存在文本中时，以：
@@ -322,6 +322,7 @@ class course_t():
 	def in_must(self,must):
 		self.must = must
 	def in_time(self,time):
+		pass
 #课程编码
 #校区：1:南校区	2:北校区0:特殊	
 #周几：（1-7）星期几
